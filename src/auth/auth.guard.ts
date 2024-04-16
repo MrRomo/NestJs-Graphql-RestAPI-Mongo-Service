@@ -17,6 +17,8 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest();
+    console.log('request', request);
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
@@ -25,7 +27,7 @@ export class AuthGuard implements CanActivate {
       // 💡 See this condition
       return true;
     }
-    const request = context.switchToHttp().getRequest();
+
     const token = this.extractTokenFromHeader(request);
     if (!token) {
       throw new UnauthorizedException();

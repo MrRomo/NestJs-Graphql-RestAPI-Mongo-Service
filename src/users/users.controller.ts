@@ -7,7 +7,7 @@ import { Public } from 'src/auth/auth.decorator';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) { }
+  constructor(private usersService: UsersService) {}
 
   @Get('/')
   @Public()

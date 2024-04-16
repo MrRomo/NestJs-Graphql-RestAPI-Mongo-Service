@@ -8,13 +8,20 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'path';
 ConfigModule.forRoot();
 @Module({
   imports: [
+    MongooseModule.forRoot(process.env.MONGO_URI),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    }),
     TaskModule,
     UsersModule,
     ProjectsModule,
-    MongooseModule.forRoot(process.env.MONGO_URI),
     AuthModule,
   ],
   controllers: [AuthController],
