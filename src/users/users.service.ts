@@ -12,6 +12,10 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
+  getUserById(id: string): Promise<User> {
+    return this.userModel.findById(id).exec();
+  }
+
   createUser(user: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(user);
     return createdUser.save({ validateBeforeSave: true });
