@@ -8,7 +8,6 @@ export class UsersResolver {
   constructor(private userService: UsersService) {}
 
   @Query(() => [GQLUser])
-  getUsers() {
     return this.userService.gqlGetUsers();
   }
 
