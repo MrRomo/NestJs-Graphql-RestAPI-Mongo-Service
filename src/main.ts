@@ -16,6 +16,11 @@ async function bootstrap() {
     .setTitle('Task Document')
     .setDescription('The cats API description')
     .setVersion('1.0')
+    .addSecurity('bearer', {
+      type: 'http',
+      scheme: 'bearer',
+    })
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   app.useGlobalPipes(new ValidationPipe());

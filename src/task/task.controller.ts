@@ -9,8 +9,7 @@ import {
   Post,
   Put,
   Query,
-  UseGuards,
-  UseInterceptors,
+  UseGuards
 } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { TaskService } from './task.service';
@@ -19,7 +18,6 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { IGetTaskDto } from './dto/get-task.dto';
 import { ValidateTaskPipe } from './validate-task/validate-task.pipe';
 import { AuthGuard } from './guard/auth/auth.guard';
-import { LoggerMiddleware } from './logger/logger.middleware';
 
 @ApiTags('task')
 @Controller('task')

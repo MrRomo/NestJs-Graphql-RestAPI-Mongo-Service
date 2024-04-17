@@ -8,8 +8,6 @@ export class TaskService {
   private tasks = [];
 
   getTasks(query: IGetTaskDto) {
-    console.log('query', query);
-    
     const tasks = [];
     if (query.id) {
       tasks.push(this.getTask(query.id));

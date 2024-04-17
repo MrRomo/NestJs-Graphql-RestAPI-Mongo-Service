@@ -28,12 +28,14 @@ export class AuthGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+
     if (isPublic) {
       // 💡 See this condition
       return true;
     }
 
     const token = this.extractTokenFromHeader(request);
+
     if (!token) {
       throw new UnauthorizedException();
     }

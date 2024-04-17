@@ -1,8 +1,8 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class GQLUser {
-  @Field(Int)
+export class User {
+  @Field()
   id: string;
 
   @Field()
@@ -13,4 +13,7 @@ export class GQLUser {
 
   @Field()
   password: string;
+
+  @Field()
+  age: number;
 }

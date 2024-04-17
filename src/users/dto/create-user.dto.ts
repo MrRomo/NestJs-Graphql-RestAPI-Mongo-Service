@@ -19,5 +19,5 @@ export class CreateUserDto {
 
   @ApiProperty({ type: Number })
   @IsNumber()
-  age: string;
+  age: number;
 }
