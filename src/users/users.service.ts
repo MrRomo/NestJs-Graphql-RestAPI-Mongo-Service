@@ -6,13 +6,13 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   getUsers(): Promise<User[]> {
     return this.userModel.find().exec();
   }
 
-  createUser(user: CreateUserDto) {
+  createUser(user: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(user);
     return createdUser.save({ validateBeforeSave: true });
   }
