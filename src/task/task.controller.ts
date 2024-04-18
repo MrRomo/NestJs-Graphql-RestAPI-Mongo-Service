@@ -9,7 +9,7 @@ import {
   Post,
   Put,
   Query,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { TaskService } from './task.service';
@@ -22,7 +22,7 @@ import { AuthGuard } from './guard/auth/auth.guard';
 @ApiTags('task')
 @Controller('task')
 export class TaskController {
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {}
 
   @Get('/:id')
   getTask(@Param('id', ParseIntPipe) id: number) {

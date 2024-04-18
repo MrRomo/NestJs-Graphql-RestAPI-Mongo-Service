@@ -1,4 +1,4 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class User {
@@ -18,18 +18,17 @@ export class User {
   age: number;
 }
 
-
-@InputType()
-export class CreateUserInput {
+@ObjectType()
+export class UserList {
   @Field()
-  name: string;
-
-  @Field()
-  email: string;
+  total: number;
 
   @Field()
-  password: string;
+  page: number;
 
   @Field()
-  age: number;
+  limit: number;
+
+  @Field(() => [User])
+  data: User[];
 }

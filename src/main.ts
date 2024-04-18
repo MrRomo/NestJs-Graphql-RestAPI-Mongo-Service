@@ -23,7 +23,7 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   SwaggerModule.setup('docs', app, document);
   await app.listen(process.env.PORT || 3000, process.env.HOST || '0.0.0.0');
 }

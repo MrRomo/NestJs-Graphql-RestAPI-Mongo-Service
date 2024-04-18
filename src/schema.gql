@@ -10,16 +10,33 @@ type User {
   age: Float!
 }
 
+type UserList {
+  total: Float!
+  page: Float!
+  limit: Float!
+  data: [User!]!
+}
+
 type Query {
+  listUsers(page: Int! = 0, limit: Int! = 10, sort: String, filter: String): UserList!
   getUsers: [User!]!
   getUserById(id: String!): User!
 }
 
 type Mutation {
-  createUser(User: CreateUserInput!): User!
+  createUser(User: CreateUserDto!): User!
+  updateUser(id: String!, User: UpdateUserDto!): User!
+  deleteUser(id: String!): User!
 }
 
-input CreateUserInput {
+input CreateUserDto {
+  name: String!
+  email: String!
+  password: String!
+  age: Float!
+}
+
+input UpdateUserDto {
   name: String!
   email: String!
   password: String!

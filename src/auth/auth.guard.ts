@@ -22,7 +22,13 @@ export class AuthGuard implements CanActivate {
     const request =
       contextType === 'graphql'
         ? GqlExecutionContext.create(context).getContext().req
-        : context.switchToHttp().getRequest();
+        : contextType === 'http'
+          ? context.switchToHttp().getRequest()
+          : null;
+
+    if (!request) {
+      throw new UnauthorizedException();
+    }
 
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
