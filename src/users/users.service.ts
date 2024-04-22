@@ -4,24 +4,23 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './user.schema';
 import { Model } from 'mongoose';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PaginationArgs } from 'src/utils/page.entity';
+import { IPaginationArgs } from 'src/utils/page.entity';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async listUsers({ limit, page, sort }: PaginationArgs) {
-    const results = await this.userModel
-      .find()
-      .skip(page * limit)
-      .sort(sort || '-createdAt')
-      .limit(limit)
-      .exec();
+  async listUsers({ limit, page, sort, filter }: IPaginationArgs) {
     return {
-      total: await this.userModel.countDocuments().exec(),
+      total: await this.userModel.countDocuments(filter).exec(),
       page,
       limit,
-      data: results,
+      data: await this.userModel
+        .find(filter || {})
+        .skip(page * limit)
+        .sort(sort || '-createdAt')
+        .limit(limit)
+        .exec(),
     };
   }
 

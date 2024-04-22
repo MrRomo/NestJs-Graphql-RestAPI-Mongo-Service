@@ -7,27 +7,27 @@ export class UpdateUserDto {
   @ApiProperty()
   @IsString()
   @MinLength(3)
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   name?: string;
 
   @ApiProperty()
   @IsString()
   @MinLength(3)
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   email?: string;
 
   @ApiProperty()
   @IsString()
   @MinLength(6)
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   password?: string;
 
   @ApiProperty({ type: Number })
   @IsNumber()
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   age?: number;
 }

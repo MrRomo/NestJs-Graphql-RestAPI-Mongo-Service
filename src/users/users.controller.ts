@@ -6,11 +6,14 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ValidateFilterObjectPipe } from 'src/utils/validate-filter-object/validate-filter-object.pipe';
+import { ListUserDto } from './dto/list-user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -19,8 +22,9 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
   //API REST ENDPOINTS FOR USERS - with JWT authentication
   @Get('/')
-  getUsers() {
-    return this.usersService.getUsers();
+  listUsers(@Query(ValidateFilterObjectPipe) query: ListUserDto) {
+    console.log(query);
+    return this.usersService.listUsers(query);
   }
 
   @Get('/:id')

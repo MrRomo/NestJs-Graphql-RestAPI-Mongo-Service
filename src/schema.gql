@@ -20,13 +20,13 @@ type UserList {
 type Query {
   listUsers(page: Int! = 0, limit: Int! = 10, sort: String, filter: String): UserList!
   getUsers: [User!]!
-  getUserById(id: String!): User!
+  getUserById(id: String!): User
 }
 
 type Mutation {
   createUser(User: CreateUserDto!): User!
   updateUser(id: String!, User: UpdateUserDto!): User!
-  deleteUser(id: String!): User!
+  deleteUser(id: String!): String
 }
 
 input CreateUserDto {
@@ -37,8 +37,8 @@ input CreateUserDto {
 }
 
 input UpdateUserDto {
-  name: String!
-  email: String!
-  password: String!
-  age: Float!
+  name: String
+  email: String
+  password: String
+  age: Float
 }

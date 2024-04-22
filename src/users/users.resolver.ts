@@ -4,13 +4,14 @@ import { User, UserList } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PaginationArgs } from 'src/utils/page.entity';
+import { ValidateFilterObjectPipe } from 'src/utils/validate-filter-object/validate-filter-object.pipe';
 
 @Resolver()
 export class UsersResolver {
   constructor(private userService: UsersService) { }
-  //GRAPHQL ENDPOINTS FOR USERS - with JWT authentication
+  // GRAPHQL ENDPOINTS FOR USERS - with JWT authentication
   @Query(() => UserList)
-  listUsers(@Args() pageArgs: PaginationArgs) {
+  listUsers(@Args(ValidateFilterObjectPipe) pageArgs: PaginationArgs) {
     return this.userService.listUsers(pageArgs);
   }
 
@@ -19,7 +20,7 @@ export class UsersResolver {
     return this.userService.getUsers();
   }
 
-  @Query(() => User)
+  @Query(() => User, { nullable: true })
   getUserById(@Args('id') id: string) {
     return this.userService.getUserById(id);
   }
@@ -34,8 +35,12 @@ export class UsersResolver {
     return this.userService.updateUser(id, user);
   }
 
-  @Mutation(() => User)
-  deleteUser(@Args('id') id: string) {
-    return this.userService.deleteUser(id);
+  @Mutation(() => String, { nullable: true })
+  async deleteUser(@Args('id') id: string) {
+    const result = await this.userService.deleteUser(id);
+    if (result) {
+      return 'User deleted successfully';
+    }
+    return null;
   }
 }

@@ -15,16 +15,9 @@ export class PaginationArgs {
   filter?: string;
 }
 
-export class Page<T> {
-  @Field()
-  total: number;
-
-  @Field()
+export interface IPaginationArgs {
   page: number;
-
-  @Field()
   limit: number;
-
-  @Field(() => [Object])
-  data: T[];
+  sort?: string;
+  filter?: any;
 }
